@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "ContactUs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/ckeditor/contents.css" rel="stylesheet" />
+<style>
+    li{
+        font-size:14px
+    }
+    .contt input[type="radio"] {
+        visibility: hidden
+    }
+    .contt {
+        margin-bottom: 2px;
+    }
+
+        .contt label {
+            position: relative;
+        }
+
+        /* Base styles for spans */
+        .contt span::before,
+        .contt span::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        /* Radio buttons */
+        .contt span.radio:hover {
+            cursor: pointer;
+        }
+
+        .contt span.radio::before {
+            left: -52px;
+            width: 45px;
+            height: 25px;
+            background-color: #A8AAC1;
+            border-radius: 50px;
+        }
+
+        .contt span.radio::after {
+            left: -49px;
+            width: 17px;
+            height: 17px;
+            border-radius: 10px;
+            background-color: #6C788A;
+            transition: left .25s, background-color .25s;
+        }
+
+
+</style>
+@*<div class="container-fluid">
+    <div id="map" class="map row"></div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (p) {
+            //var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+            //var LatLng = new google.maps.LatLng("6.43891199", "3.4357248");
+            var LatLng = new google.maps.LatLng("6.4334109999999995", "3.4548932");
+            var mapOptions = {
+                center: LatLng,
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var marker = new google.maps.Marker({
+                position: LatLng,
+                map: map,
+                title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
+            });
+            google.maps.event.addListener(marker, "click", function (e) {
+                var infoWindow = new google.maps.InfoWindow();
+                infoWindow.setContent(marker.title);
+                infoWindow.open(map, marker);
+            });
+        });
+    } else {
+        alert('Geo Location feature is not supported in this browser.');
+    }
+
+</script>*@
+<div class="container">
+    <div class="row">
+        <section class="col-md-8 marginTop40">
+            <h3>Contact Form</h3>
+            <p>Feel free to contact us</p>
+            <p>SEND MAIL TO:</p>
+
+            <div>
+                <div>
+                    <span style='margin-left:50px' class='contt'><input type='radio' name='mailRecipient' id='radio-1' value='drycleaning@tolbeelglobalinvestment.com'><label for='radio-1'><span class='radio'> LAUNDRY</span></label></span>
+                    <span style='margin-left:50px' class='contt'><input type='radio' name='mailRecipient' id='radio-2' value='tdelivery@tolbeelglobalinvestment.com'><label for='radio-2'><span class='radio'>LOGISTICS</span></label></span>
+
+                    <span style='margin-left:50px' class='contt'><input type='radio' name='mailRecipient' id='radio-3' value='tleduservices@tolbeelglobalinvestment.com'><label for='radio-3'><span class='radio'>EDUCATIONAL</span></label></span>
+                </div>
+            </div>
+            <br />
+            <div class="form-horizontal">
+                <div id="EmailDiv" style="margin:0 auto">
+                    <div style="margin-top:10px">
+                        <span><input id="mailSubject" class="form-control" placeholder="Enter your mail subject" /></span>
+                    </div>
+                    <div style="margin-top:10px">
+                        <span><input id="name" class="form-control" placeholder="Enter you fullname" /></span>
+                    </div>
+                    <div style="margin-top:10px">
+                        <span><input id="email" class="form-control" placeholder="Enter your email" /></span>
+                    </div>
+                    <div style="margin-top:10px">
+                        <span><input id="phoneNumber" class="form-control" placeholder="Enter your phone number" /></span>
+                    </div>
+                    <br />
+                    <div id="editorCK"></div>
+
+                </div>
+                <div style="float:right;margin-top:10px; padding-left:5px"><input type="button" id="btnSendMail" value="SEND" class="btn btn-success" /></div>
+            </div>
+
+            @*@using (Html.BeginForm())
+        {
+            Html.RenderPartial("AddCommentFormPartial", new TheSchoolManager.Models.Comment());
+        }*@
+            <hr class="marginTop40 visible-sm visible-xs" />
+        </section>
+        <aside class="col-md-4 marginTop40">
+            <h5>LAUNDRY FACTORY</h5>
+            <p>26, Lateef Toriola street, Kudeibu Estate, Ijegun, Ikotun</p>
+            <ul class="list-unstyled">
+
+                <li><i class="glyphicon glyphicon-phone-alt"></i> + 1 (818) 844 3383</li>
+                <li><i class="glyphicon glyphicon-envelope"></i> drycleaning@tolbeelglobalinvestment.com</li>
+            </ul>
+            <hr />
+            <h5>TL EDUCATIONAL SERVICES</h5>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-phone-alt"></i> + 1 (818) 844 3395</li>
+                <li><i class="glyphicon glyphicon-envelope"></i> tleduservices@tolbeelglobalinvestment.com</li>
+            </ul>
+            <hr />
+            <h6>LAUNDRY OUTLETS/SMART LOGISTIC OFFICES</h6>
+
+            <h7>IKOTUN CENTER</h7>
+            <p>6, Igando road Ikotun</p>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-hand-right"></i> <a href="#">Support Center</a></li>
+                <li><i class="glyphicon glyphicon-envelope"></i> support@devexpress.com</li>
+            </ul>
+            <hr />
+            <h7>AIRPORT CENTER</h7>
+            <p>2, Ogundeyi street off Airport road, Lagos</p>
+            <p>(PA JOSEPH OGUNDEYI HOUSE)</p>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-hand-right"></i> <a href="#">Support Center</a></li>
+                <li><i class="glyphicon glyphicon-envelope"></i> support@devexpress.com</li>
+            </ul>
+            <hr />
+            <h7>EGBEDA CENTER</h7>
+            <p>9, Akowonjo road, Egbeda, Lagos</p>
+            <p>(DEBOL SHOPPING COMPLEX)</p>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-hand-right"></i> <a href="#">Support Center</a></li>
+                <li><i class="glyphicon glyphicon-envelope"></i> support@devexpress.com</li>
+            </ul>
+            <hr />
+            <h7>OKOTA CENTER</h7>
+            <p>2, Olorunfemi Kolawole, Opposite First bank, Ayo Roundabout, Ago Palace way Okota, Lagos</p>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-hand-right"></i> <a href="#">Support Center</a></li>
+                <li><i class="glyphicon glyphicon-envelope"></i> support@devexpress.com</li>
+            </ul>
+            <hr />
+            <h7>JAKANDE ESTATE CENTER</h7>
+            <p></p>
+            <ul class="list-unstyled">
+                <li><i class="glyphicon glyphicon-hand-right"></i> <a href="#">Support Center</a></li>
+                <li><i class="glyphicon glyphicon-envelope"></i> support@devexpress.com</li>
+            </ul>
+        </aside>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckeditor/styles.js"></script>
+    <script src="~/ckeditor/config.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.contt input[type="radio"]').click(function () {
+                debugger
+                recipient = $("input:radio[name=mailRecipient]:checked").val();
+                alert(recipient);
+            });
+            createEditor();
+        });
+        var e1, editor, editorContent;
+        var mybarChart = '';
+        function createEditor() {
+            $('#editorCK').html('');
+            editor = CKEDITOR.appendTo('editorCK');
+            editor.on('change', function (evt) {
+                editorContent = evt.editor.getData();
+            });
+            editor.ui.addButton('ConvertFtoC', //button name
+                {
+                    label: 'Convert Fahrenheit to Celsius', //button tooltips (will show up when mouse hovers over the button)
+                    command: 'cmd_convert_F_to_C', // command which is fired to handle event when the button is clicked
+                    toolbar: 'others', //name of the toolbar group in which the new button is added
+                    icon: "../ckeditor/plugins/ckeditor_wiris/core/icons/convert.svg"//path to the button's icon
+                }
+            );
+            editor.addCommand("cmd_convert_F_to_C", {
+                exec: function (edt) {
+                    var mySelection = editor.getSelection();
+                    var selectedText;
+
+                    //Handle for the old Internet Explorer browser
+                    if (mySelection.getType() == CKEDITOR.SELECTION_TEXT) {
+                        if (CKEDITOR.env.ie) {
+                            mySelection.unlock(true);
+                            selectedText = mySelection.getNative().createRange().text;
+                        } else {
+                            selectedText = mySelection.getNative();
+                        }
+                    }
+                    var plainSelectedText = selectedText.toString();
+
+                    //Process converting
+                    var regex = /[+-]?\d+(\.\d+)?/g; //regex for float number
+
+                    if (plainSelectedText.match(regex) != null) { //check if there is a float number in selected text
+
+                        var fahrenheit = plainSelectedText.match(regex).map(function (v) { return parseFloat(v); });
+
+                        if (!isNaN(fahrenheit)) {
+
+                            var insertedElement = editor.document.createElement('span');
+
+                            var result = (fahrenheit - 32) * (5 / 9);
+
+                            //37 °C is too hot! warn user by red text
+                            if (result > 37) {
+                                insertedElement.setAttribute('style', 'color: red');
+                            }
+
+                            insertedElement.appendText(result + " °C");
+
+                            //replace reselected text by the new span element
+                            editor.insertElement(insertedElement);
+                        }
+                    }
+
+                }
+            });
+        }
+        var recipient ="";
+
+        var infoData;
+
+        $("#btnSendMail").click(function () {
+            if (recipient === "") {
+                alert("OOPS! YOU FORGOT TO SELECT THE COMPANY YOU INTENDED TO SEND MAIL TO. ")
+            } else {
+                infoData = {
+                    Fullname: $("#name").val(),
+                    PhoneNumber: $("#phoneNumber").val(),
+                    EmailSender: $("#email").val(),
+                    EmailRecipient: recipient,
+                    MailSubject: $("#mailSubject").val(),
+                    MailBody: editorContent,
+
+                };
+                debugger
+                $.ajax({
+                    url: '/Home/ContactUs',
+                    type: 'POST',
+                    data: JSON.stringify(infoData),
+                    contentType: 'application/json;',
+                    dataType: 'json',
+                    success: function (result) {
+                        debugger
+                        alert("Record successfully sent.");
+
+                    },
+                    error: function (err) {
+                        alert("Error: " + err.responseText);
+                    }
+                });
+            }
+
+        });
+    </script>
+}
+
+

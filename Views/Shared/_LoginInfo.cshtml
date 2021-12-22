@@ -1,0 +1,58 @@
+﻿@model TgiApplications.Models.SignInDetailsModel
+
+@if (Model.Roles != null)
+{
+    if (@Session["UserRoles"].ToString() != "NoRole")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("dashboard", "admin")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+        </li>
+    }
+    else if (@Session["UserRoles"].ToString() != "SuperAdmin")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("dashboard", "admin")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+        </li>
+    }
+    else if (@Session["UserRoles"].ToString() != "LaundryManager")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Home", "LogisticsServices")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+        </li>
+    }
+    else if (@Session["UserRoles"].ToString() != "LogisticsManager")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Home", "LaundryServices")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+        </li>
+    }
+    else if (@Session["UserRoles"].ToString() != "SchoolManager")
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Home", "EducationalServices")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+        </li>
+    }
+    <li class="nav-item dropdown" style="margin-right:20px;float:right">
+        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello @(Model.FirstName + " " + Model.LastName )
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+            <a class="dropdown-item" asp-action="ChangePassword" asp-controller="Users">Change password</a>
+        </div>
+    </li>
+}
+else
+{
+
+    <li class="nav-item" style="margin-right:20px;float:right">
+        <a class="btn btn-outline-primary" href="@Url.Action("Login", "Users")">LOGIN</a>
+    </li>
+    <li class="nav-item" style="margin-right:20px;float:right">
+        <a class="btn btn-outline-danger" href="@Url.Action("Register", "Users")">REGISTER</a>
+    </li>
+}
+
+
+
+

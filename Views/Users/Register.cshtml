@@ -1,0 +1,120 @@
+﻿@model TgiApplications.Models.RegisterModel
+@{Layout = "~/Views/Shared/_LoginLayout.cshtml";}
+@{ViewBag.Title = "Register";}
+<link href="~/Content/Login.css" rel="stylesheet" />
+<div class="loginBox1">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <img src="@Url.Content("~/Content/Images/user1.png")" alt="user" class="user1">
+        <h2>Register</h2>
+        @*<hr />*@
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name" })
+                </div>
+            </div>
+        </p>
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name" })
+                </div>
+            </div>
+        </p>
+        @*<p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "User Name" })
+                </div>
+            </div>
+        </p>*@
+
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+                </div>
+            </div>
+        </p>
+
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.Company, ViewBag.BList as SelectList, "Select Company", new { @class = "form-control", @id = "Company" })
+                    @Html.HiddenFor(model => model.CName, new { htmlAttributes = new { @id = "CName"} })
+                </div>
+            </div>
+        </p>
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @placeholder = "Phone Number" })
+                </div>
+            </div>
+        </p>
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class=" col-md-12">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "password", @placeholder = "Enter Password" } })
+                    </div>
+                    <div style="width: 40px; height: 40px; background: url('../Content/eye_visible.png'); background-size: cover;cursor:pointer;color:black;margin-top:-40px;margin-left:310px" id="toggle" onclick="showHide();"></div>
+                   @* @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+        </p>
+        <p style="margin-top:10px">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class=" col-md-12">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @id = "cPassword", @placeholder = "Confirm Password" } })
+                    </div>
+                    <div style="width: 40px; height: 40px; background: url('../Content/eye_visible.png'); background-size: cover;cursor:pointer;color:black;margin-top:-40px;margin-left:310px" id="toggle2" onclick="showHide();"></div>
+                    @*@Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+        </p>
+
+        <p style="margin-top:10px">
+            <input type="submit" class="btn btn-default loginBtn" value="SUBMIT" />
+        </p>
+
+    }
+    <p style="margin-top:10px">
+        <label style="color:deeppink;font-size:14px;font-weight:bold;text-align:center">@ViewBag.Message</label>
+    </p>
+</div>
+<script type="text/javascript">
+    const password = document.getElementById('password');
+    const cPassword = document.getElementById('cPassword');
+    const toggle = document.getElementById('toggle');
+    const toggle2 = document.getElementById('toggle2');
+    function showHide() {
+        if (password.type === "password" || cPassword.type === "cPassword") {
+            password.setAttribute('type', 'text');
+            cPassword.setAttribute('type', 'text');
+            toggle.classList.add('hide');
+            //$("#toggle").css({ "background-image": "url('')" });
+            //$("#toggle").css({ "background-image": 'url(../Content/eye_slash_visible.png)' });
+            toggle.style.backgroundImage = "url(../Content/eye_slash_visible.png)"
+            toggle2.style.backgroundImage = "url(../Content/eye_slash_visible.png)"
+        }
+        else {
+            password.setAttribute('type', 'password');
+            cPassword.setAttribute('type', 'password');
+            toggle.classList.remove('hide');
+            //$("#toggle").css({ "background-image": "url('')" });
+            //$("#toggle").css({ "background-image": 'url(../Content/eye_visible.png)' });
+            toggle.style.backgroundImage = "url(../Content/eye_visible.png)"
+            toggle2.style.backgroundImage = "url(../Content/eye_visible.png)"
+        }
+    }
+    //var select = document.getElementById('Company');
+    //var selectedValue = select.options[select.selectedIndex].value;
+    //document.getElementById('CName').value = selectedValue;
+    //alert(selectedValue);
+</script>

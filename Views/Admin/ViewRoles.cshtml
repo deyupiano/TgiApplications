@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "ViewRoles";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .c{
+        background-color:forestgreen;color:white
+    }
+</style>
+<h2 style="margin-top:100px;font-size:18px;color:black">Available Roles For Application</h2>
+<hr/>
+<section class="col-sm-6">
+    <table class="table-bordered">
+        @Html.ActionLink("Create Role", "CreateRole", "Admin", new { @class = "btn btn-primary" })
+    </table>
+</section>
+<section class="col-sm-6">
+    <table class="table-bordered">
+        @Html.ActionLink("Assign Role To User", "RoleAddToUser", "Admin", new { @class = "btn btn-success" })
+    </table>
+</section>
+<br />
+<div style="background-color:white">
+    <table class="table table-bordered table-hover" style="color:black;font-size:15px">
+        <tr>
+            <th class="c">
+                Role Name
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

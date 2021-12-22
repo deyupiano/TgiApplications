@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Assign Role To User";
+}
+<h2 style="margin-top:10px">Assign Role To User</h2>
+<link href="~/Content/ddl.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.Label("Select User Type", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownList("UserName", null, new { @class = "ddl" })
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="Create Role" />
+}
+
+

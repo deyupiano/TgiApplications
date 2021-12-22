@@ -1,0 +1,80 @@
+﻿
+@model IEnumerable<TgiApplications.ViewModels.ServiceVM>
+
+@{
+    ViewBag.Title = "Services";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .img {
+        width: 100px;
+        height: 100px
+    }
+</style>
+<p>
+    @Html.ActionLink("Create New", "CreateService")
+</p>
+<table class="table table-bordered table-striped" style="width:100%">
+    <tr style="background-color:forestgreen;color:white">
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>ACTION</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ServiceName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category)
+    </td>
+    <td>
+        <img class="img" src="~/UploadedImages/@item.ServiceImage" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ServiceItem)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ServiceDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditService", new { id = item.ServiceId }) |
+        @Html.ActionLink("Delete", "DeleteService", new { id = item.ServiceId })
+
+    </td>
+
+</tr>
+    }
+    <tr>
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+</table>

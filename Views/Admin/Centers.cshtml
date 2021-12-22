@@ -1,0 +1,124 @@
+﻿@model IEnumerable<TgiApplications.ViewModels.CentersVM>
+@{
+    ViewBag.Title = "Centers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<style>
+
+    .backgroundWhite {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .backgroundWhiteBorder {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+    }
+
+    .backgroundWhiteBorder10Padding {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .menu-filter-list li {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px 10px;
+        text-transform: uppercase;
+        background: #f5f5f5;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 13px;
+        -moz-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        font-family: "Poppins",sans-serif;
+    }
+
+        .menu-filter-list li.is-checke, .menu-filter-list li:hover {
+            background-color: #545b62;
+            color: #fff;
+        }
+</style>
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info"> Center List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateButtonPartial" />
+        </div>
+    </div>
+    <br />
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.CenterName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CenterAddress)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CenterPhoneNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CenterManager)
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.CenterName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.CenterAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.CenterPhoneNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.CenterManager)
+                        </td>
+                        <td style="width:150px">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" href="/admin/editcenter/@item.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <a class="btn btn-success text-white" href="/admin/centerDetail/@item.Id">
+                                    <i class="fa fa-list-alt"></i>
+                                </a>
+
+                                <a class="btn btn-danger text-white" href="/admin/deletecenter/@item.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No center exists...</p>
+        }
+    </div>
+</div>
+
+

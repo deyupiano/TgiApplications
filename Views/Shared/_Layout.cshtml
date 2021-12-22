@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] | Tolbeel Global Investment</title>
+    <link href="~/Content/animatedNavBar.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Content/socialMedia.css" rel="stylesheet" />
+
+</head>
+<body>
+    @Html.Partial("_header")
+
+    @*@RenderSection("breadcrumb", required: false)*@
+
+    <main role="main">
+        @RenderBody()
+    </main>
+    <div id="btnBackToTop" class="btnBackToTop hidden"></div>
+    @Html.Partial("_footer")
+
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/AnimatedNavBar.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+        document.getElementById('wowslider_engine').style.display = "none";
+        var isVisible = "false";
+        $(document).ready(function () {
+            //$("#wowslider_engine").css("display", "none");
+           @*$("#headerPartial").load('@Url.Content("/Home/Header")');
+           $("#footerPartial").load('@Url.Content("/Home/Footer")');*@
+            $("#navbarDropdown").click(function () {
+                if (isVisible === "false") {
+                    isVisible = "true";
+                    $("#navbarDropdownList").css({ "display": "block" });
+                } else {
+                    isVisible = "false";
+                    $("#navbarDropdownList").css({ "display": "none" });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

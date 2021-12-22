@@ -1,0 +1,307 @@
+﻿@model TgiApplications.Models.OfflineOrder
+@{
+    ViewBag.Title = "Offline Order";
+    Layout = "~/Views/Shared/_LaundryLayout.cshtml";
+}
+<link href="~/Content/bootstrap-colorpicker.min.css" rel="stylesheet" />
+<style>
+    .logo{
+        width:80px;height:80px
+    }
+    .lb {
+        color: black;
+        font-size: 15px;
+        padding-left: 10px
+    }
+
+    .lbb {
+        font-size: 15px;
+        color: black;
+    }
+
+    .tx {
+        color: black;
+        padding-left: 2px;
+        border-radius: 5px;
+        height: auto;
+        width: auto
+    }
+
+        .tx:hover {
+            cursor: pointer;
+            border: 1px solid red
+        }
+
+    .double-scroll {
+        width: 100%;
+        height:400px
+    }
+</style>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Offline Order</h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row" id="create" style="display:none">
+        <div>
+            <input type="button" class="btn btn-primary" id="backToFirstChoice" value="Back" style="margin-left:10px" />
+            <span style="float: right; width: 250px" class="col-md-9 col-sm-9 col-xs-9">
+                <select onchange="whenItemCatChanged()" class="form-control" id="itemCat"><option>FILTER ITEM BY CATEGORY</option></select>
+            </span>
+
+            <span style="float:right"><input type="button" class="btn btn-success" id="orderSummary" value="ORDER SUMMARY" /></span>
+        </div>
+        <div class="x_content">
+            <div class="double-scroll">
+
+                <table id="registrationTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td><input style="margin-top:26px" class="btn btn-success btnAddPerson" type="button" value="+" /></td>
+                            <td>
+                                <label class="lb">Customer</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <select onchange="whenCustomerChanged()" class="form-control" id="customer"><option>SELECT CUSTOMER</option></select>
+                                </div>
+                            </td>
+                            <td>
+                                <label class="lb">Job Task Progress</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <select onchange="whenProgressChanged()" class="form-control" id="progessStatus"><option>SELECT STATUS</option></select>
+                                </div>
+                            </td>
+                            <td>
+                                <label class="lb">Pick-Up-Date</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <input type="date" id="pickupDate" name="PickupDate" class="form-control col-md-7 col-xs-12">
+                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+                            </td>
+
+                            <td><div id="tag" class="col-md-9 col-sm-9 col-xs-9" style="width:250px"></div></td>
+                            <td>
+                                <label class="lb">Service</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <select onchange="whenServiceChanged()" class="form-control" id="service"><option>SELECT SERVICE</option></select>
+                                </div>
+                            </td>
+                            <td>
+                                <label class="lb">Request</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <select class="form-control" id="serviceType" onchange="whenRequestChanged()"><option>SELECT REQUEST TYPE</option></select>
+                                </div>
+                            </td>
+                            @*<td>
+                                <label class="lb">Request</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px" >
+                                    <select class="form-control" id="item" onchange="whenItemChanged()"><option>SELECT ITEM</option></select>
+                                </div>
+                            </td>*@
+                            <td><label class="lbb" id="itemPrice">Price</label></td>
+                            <td>
+                                <label class="lb">Quantity</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <input onchange="whenQuantityChanged()" type="number" id="quantity" class="form-control" placeholder="Quantity" />
+                                </div>
+                            </td>
+                            <td><label class="lbb" id="total">Total</label></td>
+                            <td>
+                                <label class="lb">Item Colour Picker</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                    <div class="input-group demo2">
+                                        <input onchange="whenColorChanged()" id="itemColor" type="text" value="#e01ab5" class="form-control" />
+                                        <span class="input-group-addon"><i></i></span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td><input style="margin-top:26px" class="btn btn-success btnAddPerson" type="button" value="+" /></td>
+
+                        </tr>
+                    </thead>
+                    <tbody id="personList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="list" style="display:none">
+        <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 5px">
+            <input id="gotoCreate" type="button" value="ADD NEW PERSON" class="btn btn-success form-control" />
+        </div>
+        <div class="x_content">
+            <div id="wrapper33">
+                <div id="div33"></div>
+            </div>
+            <div id="wrapper44" class="x_content" style="width:100%; height:570px;overflow:scroll">
+                <div id="div44">
+                    <table id="rListTable" class="table table-bordered table-striped" style="width:100%">
+                        <thead style="background-color:darkgreen;color:white">
+                            <tr>
+                                <th>ID</th>
+                                <th>CENTER</th>
+                                <th>CUSTOMER</th>
+                                <th>STAFF</th>
+                                <th>REFERENCE</th>
+                                <th>SERVICE</th>
+                                <th>TYPE</th>
+                                <th>CATEGORY</th>
+                                <th>ORDER_DATE</th>
+                                <th>PICK_DATE</th>
+                                <th>ACTION</th>
+                                <th>ITEM</th>
+                                <th>COLOR</th>
+                                <th>PRICE</th>
+                                <th>QUANTITY</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rListBody" style="color:black"></tbody>
+                        <tfoot style="background-color:forestgreen;color:white">
+                            <tr>
+                                <th>ID</th>
+                                <th><input class="tx" type="text" placeholder="Search UNIQUE_ID"></th>
+                                <th><input class="tx" type="text" placeholder="Search NAME"></th>
+                                <th><input class="tx" type="text" placeholder="Search COMPANY"></th>
+                                <th><input class="tx" type="text" placeholder="Search EMAIL"></th>
+                                <th><input class="tx" type="text" placeholder="Search PHONE_NO"></th>
+                                <th><input class="tx" type="text" placeholder="Search WHATSAPP"></th>
+                                <th><input class="tx" type="text" placeholder="Search REGISTERED AS"></th>
+                                <th><input class="tx" type="text" placeholder="Search GENDER"></th>
+                                <th><input class="tx" type="text" placeholder="Search DOB"></th>
+                                <th>PASSWORD</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" id="firstCriteria">
+    <div class="x_content" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+        <input type="button" value="GO TO ORDER LIST" class="btn btn-danger form-control backToList" />
+    </div>
+    <div class="x_content">
+        <div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb">SERVICE CATEGORY</label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <select onchange="whenServiceCategoryChanged()" class="form-control" id="serviceCategory"><option>SERVICE CATEGORY</option></select>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb">CENTER</label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <select onchange="whenCenterChanged()" class="form-control" id="center"><option>SELECT CENTER</option></select>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb">LOCATION</label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <select onchange="whenLocationChanged()" class="form-control" id="location"><option>SELECT LOCATION</option></select>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb">TAGGING MODE</label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <select onchange="whenTagingModeChanged()" class="form-control" id="tagMode"><option value="">SELECT TAG MODE</option><option value="MANUAL">MANUAL</option><option value="AUTOMATIC">AUTOMATIC</option></select>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb">DISCOUNT AMOUNT</label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <input value="0" onkeypress="return isNumberKey(event,this.id)" id="discountAmt" placeholder="DISCOUNT AMOUNT" class="form-control"/>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                <label class="lb"></label>
+                <div class="col-md-9 col-sm-9 col-xs-9" style="width:350px">
+                    <button style="margin-top:8px" type="button" id="btnLocation" class="btn btn-success">NEXT</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row" id="summaryDetailsDiv" style="display:none">
+    <div class="row" style="font-size: 14px; margin-right: 5px; margin-left: 10px">
+        <span style="float: left"><input type="button" id="btoOrder" value="BACK TO ORDER" class="btn btn-danger form-control backToOrder" /></span>
+        <span style="float: right"><input type="button" id="btnSendEmail" value="SEND AS EMAIL" class="btn btn-danger form-control" /></span>        
+        <span style="float: right;margin-right:10px"><input type="button" id="btnSendText" value="SEND AS TEXT" class="btn btn-danger form-control" /></span>
+    </div>
+    <div class="x_content">
+        <div id="summaryDetails">
+
+        </div>
+
+    </div>
+
+</div>
+<div class="row" id="edit" style="display:none">
+    <div class="x_content">
+        <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+            <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+        </div>
+        <p class="themeBgBorderBottom" style="width:100%;font-size:18px;text-align:center" id="inf">EDIT OFFLINE ORDER</p>
+
+        <div class="modal-footer themeBg" style="text-align: center; font-weight: bold; padding-top: 5px; font-size: 15px;height:50px">
+            <span class="fa-pull-right"><button id="SubmitEditedRecord" type="button" class="btn btn-success">UPDATE</button></span>
+        </div>
+    </div>
+
+</div>
+<div class="row" id="details" style="display:none">
+    <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+        <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+    </div>
+    <div class="x_content">
+
+        <p class="themeBgBorderBottom" style="width:100%;font-size:18px;text-align:center" id="inf">PERSON DETAILS</p>
+    </div>
+
+</div>
+<div class="row" id="delete" style="display:none">
+    <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+        <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+    </div>
+    <div class="x_content">
+        <div>
+            <div class="form-horizontal">
+                Do you want to delete this person?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnOkDelete" class="btn btn-danger">Ok</button>
+            <button type="button" id="btnCancel" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/jqueryUI.js"></script>
+    <script src="~/Content/bootstrap-colorpicker.min.js"></script>
+    <script src="~/Scripts/offlineOrder.js"></script>
+    <script src="~/Scripts/doubleScroll.js"></script>
+    <script src="~/Scripts/accounting.js"></script>
+
+}
+

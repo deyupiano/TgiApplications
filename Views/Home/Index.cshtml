@@ -1,0 +1,49 @@
+﻿@*@model TgiApi.Models.SignInDetailsModel*@
+
+@{ ViewData["Title"] = "Home"; }
+<link href="~/Content/slider.css" rel="stylesheet" />
+<div id="wowslider-container1" style="width:100%">
+    <div class="ws_images">
+        <ul>
+            <li><img src="~/Content/images/1.png" alt="" title="" id="wows1_0" /></li>
+            <li><img src="~/Content/images/2.png" alt="" title="" id="wows1_1" /></li>
+            <li><img src="~/Content/images/3.png" alt="" title="" id="wows1_2" /></li>
+            <li><img src="~/Content/images/4.png" alt="" title="" id="wows1_3" /></li>
+            <li><img src="~/Content/images/5.png" alt="" title="" id="wows1_4" /></li>
+            <li><img src="~/Content/images/6.png" alt="" title="" id="wows1_5" /></li>
+            <li><a><img src="~/Content/images/7.png" alt="jquery slideshow" title="" id="wows1_6" /></a></li>
+            @*<li><img src="~/Content/images/8.jpg" alt="" title="" id="wows1_7" /></li>
+        <li><img src="~/Content/images/9.jpg" alt="" title="" id="wows1_8" /></li>
+        <li><img src="~/Content/images/10.jpg" alt="" title="" id="wows1_9" /></li>*@
+        </ul>
+    </div>
+    <div class="ws_bullets">
+        <div>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/1.jpg" alt="" />1</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/2.jpg" alt="" />2</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/3.jpg" alt="" />3</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/4.jpg" alt="" />4</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/5.jpg" alt="" />5</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/6.jpg" alt="" />6</span></a>
+            <a href="#" title=""><span><img src="~/Content/images/tooltips/7.jpg" alt="" />7</span></a>
+            @*<a href="#" title=""><span><img src="~/Content/images/tooltips/8.jpg" alt="" />8</span></a>
+        <a href="#" title=""><span><img src="~/Content/images/tooltips/9.jpg" alt="" />9</span></a>
+        <a href="#" title=""><span><img src="~/Content/images/tooltips/10.jpg" alt="" />10</span></a>*@
+        </div>
+        <div class="ws_shadow"></div>
+    </div>
+
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/slider.js"></script>
+    <script src="~/Scripts/sliderScript.js"></script>
+    <script>
+        $(document).ready(function () {
+            //alert("document is ready");
+
+        });
+    </script>
+}

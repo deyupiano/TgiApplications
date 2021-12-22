@@ -1,0 +1,140 @@
+﻿@model TgiApplications.Models.Coupon
+@{
+    ViewData["Title"] = "Delete Coupon";
+}
+<style>
+
+    .backgroundWhite {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .backgroundWhiteBorder {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+    }
+
+    .backgroundWhiteBorder10Padding {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .menu-filter-list li {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px 10px;
+        text-transform: uppercase;
+        background: #f5f5f5;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 13px;
+        -moz-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        font-family: "Poppins",sans-serif;
+    }
+
+        .menu-filter-list li.is-checke, .menu-filter-list li:hover {
+            background-color: #545b62;
+            color: #fff;
+        }
+</style>
+<br />
+<h2 class="text-info">Delete Coupon</h2>
+<br />
+@using (Html.BeginForm("DeleteCoupon", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row  backgroundWhiteBorder">
+        <br />
+        <div class=" col-12 border">
+            @{
+                var base64 = Convert.ToBase64String(Model.Picture);
+                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+            }
+            <img src="@imgsrc" height="100%" width="100%" />
+        </div>
+        <div class="col-12 pt-4">
+            <fieldset disabled>
+                <div class="form-group row">
+                    <div class="col-2">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "custom-label" })
+                    </div>
+                    <div class="col-5">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "custom-label" })
+                    </div>
+                    <div class="col-5">
+                        @Html.DropDownListFor(model => model.CouponType, ViewBag.CTypeList as SelectList, "Select Coupon Type", new { @class = "form-control", @id = "ServiceCategoryId" })
+                        @Html.ValidationMessageFor(model => model.CouponType, "", new
+                        {
+                            @class
+                       = "text-danger"
+                        })
+                        @*<select asp-for="CouponType" asp-items="Html.GetEnumSelectList<Coupon.ECouponType>()" class="form-control"></select>*@
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "custom-label" })
+                    </div>
+                    <div class="col-5">
+                        @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        @Html.LabelFor(model => model.MinimumAmount, htmlAttributes: new { @class = "custom-label" })
+                    </div>
+                    <div class="col-5">
+                        @Html.EditorFor(model => model.MinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "custom-label" })
+                    </div>
+                    <div class="col-5">
+                        @Html.CheckBoxFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>
+
+            </fieldset>
+            <br />
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <div class="row">
+                        <div class="col-6">
+                            <a class="btn btn-danger form-control" href="/admin/deletecoupon/'+@Model.Id+'">
+                                <i>Delete</i>
+                            </a>
+         
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-danger form-control" href="/admin/coupon">
+                                <i>Back to List</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

@@ -1,0 +1,88 @@
+﻿@model TgiApplications.ViewModels.LocationExtraVM
+@{
+    ViewBag.Title = "Edit Location Extra charges";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+
+    .backgroundWhite {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .backgroundWhiteBorder {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+    }
+
+    .backgroundWhiteBorder10Padding {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .menu-filter-list li {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px 10px;
+        text-transform: uppercase;
+        background: #f5f5f5;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 13px;
+        -moz-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        font-family: "Poppins",sans-serif;
+    }
+
+        .menu-filter-list li.is-checke, .menu-filter-list li:hover {
+            background-color: #545b62;
+            color: #fff;
+        }
+</style>
+@using (Html.BeginForm("EditLocationExtraCharges", "Admin", FormMethod.Post))
+{
+    <div class="border backgroundWhite">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "text-info font-weight-bold" })
+            </div>
+            <div class="col-5">
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.ExtraId)
+            </div>
+            @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                @Html.LabelFor(model => model.Charges, htmlAttributes: new { @class = "text-info font-weight-bold" })
+            </div>
+            <div class="col-5">
+                @Html.EditorFor(model => model.Charges, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+            @Html.ValidationMessageFor(model => model.Charges, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <a href="/Admin/LocationExtraCharges" class="btn btn-success form-control">Back to List</a>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" value="SUBMIT" class="btn btn-dark form-control" />
+            </div>
+        </div>
+    </div>
+}
+

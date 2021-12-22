@@ -1,0 +1,159 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-repeat: no-repeat;
+    height:750px;
+    background-image: url('Images/loginBg1.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+    position:relative;
+}
+.loginBox {
+
+    margin-top:-10px;
+    position:absolute;
+    z-index:999;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding: 70px 70px;
+    width:500px;
+    height:600px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,.5);
+}
+.loginBox1 {
+    margin-top: -10px;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 70px 70px;
+    width: 500px;
+    height: 700px;
+    box-sizing: border-box;
+    background: rgba(0,0,0,.5);
+}
+.user1{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    overflow:hidden;
+    position:absolute;
+    top:calc(-100px/2);
+    left:calc(50% - 50px);
+}
+h2{
+    margin:0;
+    padding:0 0 20px;
+    color:#FF1493;
+    text-align:center;
+}
+
+.loginBox p{
+    margin:0;
+    padding:0;
+    font-weight:bold;
+    color:#fff;
+    font-size:15px
+}
+.loginBox1 p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #fff;
+    font-size: 15px
+}
+.loginBox div{
+    margin:0;
+    padding:0;
+    font-weight:bold;
+    color:#fff;
+}
+.loginBox input{
+    width:100%;
+    margin-bottom:20px;
+}
+.loginBox input[type="text"],
+.loginBox input[type="password"]
+{
+    border:none;
+    border-bottom:1px solid #fff;
+    background:transparent;
+    outline:none;
+    height:40px;
+    color:#FF1493;
+    font-size:16px;
+    padding-left:15px;
+
+}
+
+.ddl
+{
+    border:none;
+    border-bottom:1px solid #fff;
+    background:transparent;
+    outline:none;
+    color:#fff;
+    font-size:16px;
+    padding-left:15px;
+    height:40px;
+    width:280px;
+
+}
+
+.loginBox input[type="checkbox"]
+{
+    border:none;
+    border-bottom:1px solid #fff;
+    background:transparent;
+    outline:none;
+    height:15px;
+    color:#fff;
+    font-size:16px;
+}
+.loginBtn {
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+    background: #ff267e;
+    cursor: pointer;
+    border-radius: 20px;
+}
+    .loginBtn:hover {
+        background: #efed40;
+        color: #262626;
+    }
+a
+{
+    font-size:14px;
+    font-weight:bold;
+    color:#fff;
+    text-decoration:none;
+
+}
+a:hover{
+    color:#ff267e;
+}
+.loginBox input[type="password"]::placeholder {
+    color: #ccc
+}
+
+#toggle {
+    /*        position:absolute;
+        top:50%;
+        right:20px;*/
+    /*transform: translateY(-50%);*/
+    width: 40px;
+    height: 40px;
+    /*background:url("../Content/eye_visible.png");*/
+    /*background-size:cover;*/
+    cursor: pointer;
+    background-color: forestgreen;
+    color: white
+}

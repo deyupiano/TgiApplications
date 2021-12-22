@@ -1,0 +1,202 @@
+﻿@model TgiApplications.ViewModels.OrderDetailsCart
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .backgroundWhite {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+    }
+
+    .backgroundWhiteBorder {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+    }
+
+    .backgroundWhiteBorder10Padding {
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .menu-filter-list li {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 20px 10px;
+        text-transform: uppercase;
+        background: #f5f5f5;
+        border-radius: 5px;
+        font-weight: 700;
+        font-size: 13px;
+        -moz-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+        font-family: "Poppins",sans-serif;
+    }
+
+        .menu-filter-list li.is-checke, .menu-filter-list li:hover {
+            background-color: #545b62;
+            color: #fff;
+        }
+</style>
+@using (Html.BeginForm("Summary", "CustomerCart", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    if (Model.listCart.Count > 0)
+    {
+        <br />
+        <input id="userId" asp-for="@Model.listCart[0].ApplicationUserId" hidden />
+        <div class="backgroundWhiteBorder">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fa fa-shopping-cart"></i> &nbsp;
+                            Shopping Cart
+                        </div>
+                        <div class="col-6 text-right">
+                            <a href="/Customer/index/" class="btn btn-outline-info btn-sm">Continue Shopping</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model.listCart)
+                        {
+                            <div class="row">
+                                <div class="d-none d-lg-block col-lg-2 text-center py-2">
+                                    <img src="/UploadedImages/@item.Service.Image" class="rounded" width="120" height="80" />
+                                </div>
+                                <div class="col-12 text-sm-center col-lg-5 text-lg-left">
+                                    <h4><strong>@item.Service.ServiceName</strong></h4>
+                                    <h4><small>@item.Service.ServiceDescription</small></h4>
+                                </div>
+                                <div class="col-12 text-sm-center col-lg-5 text-lg-right row">
+                                    <div class="col-4 text-md-right" style="padding-top:5px;">
+                                        <h6><strong>$@item.Service.Price <span class="text-muted">x</span> @item.Count </strong></h6>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-lg-6">
+                                        <div class="float-right mx-1">
+                                            @*<button type="submit" class="btn btn-primary" asp-action="plus" asp-route-cartId="@item.ServiceId">
+                                                <i class="fa fa-plus"></i>
+                                            </button>*@
+                                            <button type="button" onclick="add('@item.Id')" class="btn btn-success">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="float-right mx-1">
+                        
+                                            <button type="button" onclick="minus('@item.Id')"  class="btn btn-primary">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-4 col-lg-2 text-right">
+                                        <button type="button" onclick="remove('@item.Id')" class="btn btn-outline-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        @*<button type="submit" class="btn btn-outline-danger" asp-action="remove" asp-route-cartId="@item.ServiceId">
+                                            <i class="fa fa-trash"></i>
+                                        </button>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        }
+
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <input asp-for="@Model.OrderHeader.CouponCode" id="txtCouponCode" class="form-control" placeholder="coupon code..." />
+                                    </div>
+                                    <div class="col-5" style="margin-top:2px;">
+                                        <button type="submit" class="btn btn-sm form-control btn-outline-success" id="btnCoupon" asp-action="AddCoupon">
+                                            Apply
+                                        </button>
+                                        <button type="submit" class="btn btn-sm form-control btn-outline-danger" style="display:none" id="btnRemoveCoupon" asp-action="RemoveCoupon">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span class="text-info"> Total (NAIRA)</span>
+                                        <strong class="text-info">N <span id="txtOrderTotal">@Model.OrderHeader.OrderTotal</span></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+                            <input type="submit" class="btn btn-success form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="backgroundWhiteBorder"> No items added to the shopping cart...</div>
+    }
+}
+
+
+@section Scripts{
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script>
+        $(function () {
+            var couponCode = document.getElementById("txtCouponCode").value;
+
+            if (couponCode.length > 0) {
+                document.getElementById('btnCoupon').style.display = 'none';
+                document.getElementById('btnRemoveCoupon').style.display = '';
+            }
+            else {
+                document.getElementById('btnCoupon').style.display = '';
+                document.getElementById('btnRemoveCoupon').style.display = 'none';
+            }
+        });
+        function minus(cartId) {
+            $.ajax({
+                url: '/CustomerCart/Minus?cartId=' + cartId,
+                type: 'GET',
+                async: false,
+                data: { 'cartId': cartId }
+            });
+            location.href = location.href;
+        }
+        function add(cartId) {
+            $.ajax({
+                url: '/CustomerCart/Plus?cartId=' + cartId,
+                type: 'GET',
+                async: false,
+                data: { 'cartId': cartId }
+            });
+            location.href = location.href;
+        }
+        function remove(cartId) {
+            $.ajax({
+                url: '/CustomerCart/Remove?cartId=' + cartId,
+                type: 'GET',
+                async: false,
+                data: { 'cartId': cartId }
+            });
+            location.href = location.href;
+        }
+    </script>
+}

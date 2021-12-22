@@ -1,0 +1,70 @@
+﻿
+@model IEnumerable<TgiApplications.ViewModels.ItemVM>
+
+@{
+    ViewBag.Title = "Services";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .img {
+        width: 100px;
+        height: 100px
+    }
+</style>
+<p>
+    @Html.ActionLink("Create New", "CreateItem")
+</p>
+<table class="table table-bordered table-striped" style="width:100%">
+    <tr style="background-color:forestgreen;color:white">
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ICategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemImage)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ItemDescription)
+        </th>
+        <th>ACTION</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ItemName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ICategory)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SCategory)
+    </td>
+    <td>
+        <img class="img" src="~/UploadedImages/@item.ItemImage" />
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.ItemDescription)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "EditItem", new { id = item.ItemId }) |
+        @Html.ActionLink("Delete", "DeleteItem", new { id = item.ItemId })
+
+    </td>
+
+</tr>
+    }
+    <tr>
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+</table>

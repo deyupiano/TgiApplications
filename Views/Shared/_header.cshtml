@@ -1,0 +1,79 @@
+﻿@using TgiApplications.Utility;
+<header>
+
+
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a style="text-align:center" class="navbar-brand" href="@Url.Action("index", "home")">
+            <img src="~/Content/images/TGI.png" width="80" height="80" asp-append-version="true" />
+
+            TOLBEL GLOBAL INVESTMENT
+        </a>
+        @if (Session[SD.ssShoppingCartCount] != null)
+        {
+            var count = Convert.ToInt32(Session[SD.ssShoppingCartCount]);
+            <a style="color:white" href="#" class="nav-link pull-right"><i style="color:white" class="fa fa-shopping-cart"></i> &nbsp; (@count)</a>
+        }
+        else
+        {
+            <a style="color:white" href="#" class="nav-link pull-right"><i style="color:white" class="fa fa-shopping-cart"></i> &nbsp; (0)</a>
+        }
+
+        <div class="navbar-toggler custom-toggler" data-toggle="collapse" data-target="#collapsingNavbar2">
+            <span class="navbar-toggler-icon navbar-custom"></span>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width:100%">
+            <ul class="navbar-nav ml-auto" style="width:100%">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                @if (@Session["UserRoles"].ToString() == "SuperAdmin")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("dashboard", "admin")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+                }
+
+                @if (@Session["UserRoles"].ToString() == "Customer")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("index", "customer")"><i class="fa fa-tachometer-alt"></i>Dashboard</a>
+                    </li>
+                }
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i>HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Home", "EducationalServices")"><i class="fa fa-university"></i>EDUCATIONAL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Home", "LaundryServices")"><i class="fa fa-industry"></i>LAUNDRY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Home", "LogisticsServices")"><i class="fa fa-briefcase"></i>LOGISTICS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("contactus", "home")"><i class="fa fa-book"></i>CONTACT_US</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("about", "home")"><i class="fa fa-question"></i>ABOUT</a>
+                </li>
+                @if (@Session["UserRoles"].ToString() != "NoRole")
+                {
+                    <div class="dropdown" style="float:right;margin-right:5px;width:100%;margin-top:15px">
+                        <a style="padding-left:45px" class="nav-link dropdown-toggle dddl text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello @(@Session["UserName"].ToString() )
+                        </a>
+                        <div id="navbarDropdownList" class="dropdown-menu" style="display:none;width:100%;height:auto;background-color:black">
+                            <span style="width:200px;float:left;margin-top:-6px;margin-left:170px;padding-bottom:-5px"><a class="btn btn-dark" href="@Url.Action("Logout", "Users")">Logout</a></span>
+                            <span style="width: 200px; float: left; margin-top: -6px; margin-right: -50px; padding-bottom: -5px "> <a class="btn btn-dark" @Url.Action("ChangePassword", "Users")>Change password</a></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @Html.Partial("_LoginInfo")
+                }
+            </ul>
+
+        </div>
+
+    </nav>
+</header>

@@ -1,0 +1,745 @@
+﻿
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/cropper.min.css" rel="stylesheet" />
+<style>
+    .tx {
+        color: black;
+        padding-left: 2px;
+        border-radius: 5px;
+        height: auto;
+        width: auto
+    }
+
+        .tx:hover {
+            cursor: pointer;
+            border: 1px solid red
+        }
+
+    .double-scroll {
+        width: 100%;
+        height: 400px
+    }
+</style>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Registration</h3>
+        </div>
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row" id="create">
+        <div class="x_content">
+            <div class="x_content">
+                <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+                    <input id="clearList" type="button" value="CLEAR LIST" class="btn btn-danger form-control" />
+                </div>
+                <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 5px">
+                    <input onclick="submitBulkRegPersonData();" type="button" value="SUBMIT" class="btn btn-success form-control" />
+                </div>
+                <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 5px">
+                    <input id="gotoList" type="button" value="LIST" class="btn btn-success form-control" />
+                </div>
+                <!-- Split button -->
+                <div class="btn-group">
+                    <button id="btnSelectedMode" type="button" class="btn btn-default">REGISTRATION MODE</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu selectedMode" role="menu">
+                        <li>
+                            <a href="#" onclick="selectedMode('ONLINE');">ONLINE</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectedMode('OFFLINE');">OFFLINE</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Split button -->
+                <div class="btn-group">
+                    <select id="roles" class="form-control" style="width:150px"><option>SELECT ROLE</option></select>
+                </div>
+
+                <!-- Split button -->
+                <!-- Split button -->
+                <div class="btn-group">
+                    <button id="btnSelectedCompany" type="button" class="btn btn-default">COMPANY</button>
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#" onclick="selectedCompany('TOLBEEL PROFESSIONAL LAUNDRY SERVICES');">TOLBEEL PROFESSIONAL LAUNDRY SERVICES</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectedCompany('TOLBEEL SMART LOGISTICS SERVICES');">TOLBEEL SMART LOGISTICS SERVICES</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="selectedCompany('TL EDUCATIONAL SERVICES');">TL EDUCATIONAL SERVICES</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="btn-group" style="color:black;font-size:14px;float:right">
+                    <label id="rowReg">--</label>
+                </div>
+
+                <!-- Split button -->
+            </div>
+            <div class="x_content" style="width:100%">
+                <div class="double-scroll">
+                    <table id="registrationTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td><input class="btn btn-success btnAddPerson" type="button" value="+" /></td>
+                                <td>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                        <input type="text" data-validate-length-range="6" data-validate-words="2" name="name" id="name" class="form-control" required="required" placeholder="FIRSTNAME LASTNAME">
+                                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                        <input type="email" id="email" name="confirm_email" data-validate-linked="email" required="required" class="form-control" placeholder="EMAIL">
+                                        <span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                        <input type="text" id="phoneNumber" name="phoneNumber" required="required" data-validate-minmax="11" class="form-control" data-inputmask="'mask' : '(999) 999-9999'">
+                                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                        <input type="text" id="whatsappeNumber" name="whatsappeNumber" data-validate-minmax="11" class="form-control" data-inputmask="'mask' : '(999) 999-9999'">
+                                        <span class="fa fa-whatsapp form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col-md-9 col-sm-9 col-xs-9" style="width:250px">
+                                        <input type="date" id="dob" name="trip-start"
+                                               value="1960-01-01"
+                                               min="1960-01-01" max="2060-12-31" class="form-control col-md-7 col-xs-12">
+                                        <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="btn-group" style="width:120px">
+                                        <button id="btnSelectedGender" type="button" class="btn btn-default">GENDER</button>
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="#" onclick="selectedGender('MALE');">MALE</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="selectedGender('FEMALE');">FEMALE</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>PASSWORD</td>
+
+                                <td><input class="btn btn-success btnAddPerson" type="button" value="+" /></td>
+
+                            </tr>
+                        </thead>
+                        <tbody id="personList"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" id="list" style="display:none">
+        <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 5px">
+            <input id="gotoCreate" type="button" value="ADD NEW PERSON" class="btn btn-success form-control" />
+        </div>
+        <div class="x_content">
+            <div id="wrapper33">
+                <div id="div33"></div>
+            </div>
+            <div id="wrapper44" class="x_content" style="width:100%; height:570px;overflow:scroll">
+                <div id="div44">
+                    <table id="rListTable" class="table table-bordered table-striped" style="width:100%">
+                        <thead style="background-color:darkgreen;color:white">
+                            <tr>
+                                <th>ID</th>
+                                <th>UNIQUE_ID</th>
+                                <th>NAME</th>
+                                <th>COMPANY</th>
+                                <th>EMAIL</th>
+                                <th>PHONE_NO</th>
+                                <th>WHATSAPP</th>
+                                <th>REG.AS</th>
+                                <th>GENDER</th>
+                                <th>DOB</th>
+                                <th>PASSWORD</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rListBody" style="color:black"></tbody>
+                        <tfoot style="background-color:forestgreen;color:white">
+                            <tr>
+                                <th>ID</th>
+                                <th><input class="tx" type="text" placeholder="Search UNIQUE_ID"></th>
+                                <th><input class="tx" type="text" placeholder="Search NAME"></th>
+                                <th><input class="tx" type="text" placeholder="Search COMPANY"></th>
+                                <th><input class="tx" type="text" placeholder="Search EMAIL"></th>
+                                <th><input class="tx" type="text" placeholder="Search PHONE_NO"></th>
+                                <th><input class="tx" type="text" placeholder="Search WHATSAPP"></th>
+                                <th><input class="tx" type="text" placeholder="Search REGISTERED AS"></th>
+                                <th><input class="tx" type="text" placeholder="Search GENDER"></th>
+                                <th><input class="tx" type="text" placeholder="Search DOB"></th>
+                                <th>PASSWORD</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" id="edit" style="display:none">
+    <div class="x_content">
+        <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+            <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+        </div>
+        <p class="themeBgBorderBottom" style="width:100%;font-size:18px;text-align:center" id="inf">EDIT INFORMATION</p>
+        <div style="height:10%;width:100%" id="divFileUpload">
+            <span><input type="file" id="ImageBrowse" name="imageBrowse" accept=".jpg, .jpeg, .png" class="form-control"></span>
+            <p>Image Height and Width should not be greater than 150px</p>
+            <p style="color:red" id="ImgDetail"></p>
+        </div>
+        <div style="max-height:550px; overflow-y:scroll;height:350px">
+            <div class="form-horizontal form-label-left">
+
+
+                <div id="CameraPics" class="form-group">
+
+                    <br />
+                    <div id="divVideoPlusControl" style="height:90%">
+                        <div id="stage" class="stage">
+                            <div style="height:100%;width:50%"><video id="video" width="550" height="380" autoplay></video></div>
+                        </div>
+                        <div id="controls"></div>
+                        <div style="height:100%;width:100%" id="divCanvas"></div>
+                        <div class="item form-group">
+                            <div style="display:none" id="crpImg" class="col-md-6 col-sm-6 col-xs-12">
+                                <img id="canv" style="height:200px;width:200px" />
+                            </div>
+                            <div style="display:none" id="crpImg2" class="col-md-6 col-sm-6 col-xs-12">
+
+                            </div>
+                        </div>
+                        <!--<div id="crpImg"><img id="canv" style="height:200px;width:200px" /></div>-->
+                    </div>
+
+                </div>
+                <!--<div id="" class="image-previewer" data-cropzee="ImageBrowse"></div>-->
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="school">
+                        Company <span class="required">*</span>
+                        <input id="CustId" type="hidden">
+                        <input id="UserId" type="hidden">
+                        <input id="EditedPassword" type="hidden">
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedCompany" type="text" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="session">
+                        UniqueId <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedUniqueId" type="text" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="session">
+                        Mode <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedMode" type="text" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="session">
+                        Registered As <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedRegisteredAs" type="text" class="form-control col-md-7 col-xs-12" />
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="surname">
+                        Fullname
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedFullname" class="form-control col-md-7 col-xs-12" data-validate-length-range="3" data-validate-words="1" name="Surname" placeholder="Surname" required="required" type="text">
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                        Gender <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="EditedGender" name="Gender" required="required" placeholder="Gender" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                        Email <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" id="EditedEmail" name="Email" required="required" placeholder="Valid Email Address" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                        Phone Number <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" id="EditedPhoneNumber" name="PhoneNumber" required="required" placeholder="Phone Number" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
+                        Whatsapp Number <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" id="EditedWhatsappNumber" name="WhatsappNumber" required="required" placeholder="Whatsapp Number" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dob">
+                        Date Of Birth <span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="date" id="EditedDob" name="trip-start"
+                               value="1960-01-01"
+                               min="1960-01-01" max="2060-12-31" class="form-control col-md-7 col-xs-12" pattern="[0-9]{4}-[0-9]{2}">
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 lbAlign" for="year">
+                        Address1
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <textarea class="form-control col-md-7 col-xs-12" id="EditedAddress1" name="addressEditReg" style="height:50px"></textarea>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 lbAlign" for="year">
+                        Address2
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <textarea class="form-control col-md-7 col-xs-12" id="EditedAddress2" name="addressEditReg" style="height:50px"></textarea>
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12 lbAlign" for="Soo">
+                        State Of Residence
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedStateOfResidence" type="text" class="form-control col-md-7 col-xs-12" name="SooEditReg" />
+                    </div>
+                </div>
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lga">
+                        LGA
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input id="EditedLGA" class="form-control col-md-7 col-xs-12" data-validate-length-range="3" data-validate-words="1" name="Lga" placeholder="Local Government Area" required="required" type="text">
+                    </div>
+                </div>
+
+                <div class="ln_solid"></div>
+            </div>
+        </div>
+        <div class="modal-footer themeBg" style="text-align: center; font-weight: bold; padding-top: 5px; font-size: 15px;height:50px">
+            <span class="pull-left"><button type="button" class=" btn btn-success" id="btnCrop">CROP PICTURE</button></span>
+            <span class="pull-left" style="margin-left:5px"><button type="button" class="btn btn-default" id="btnShowCamBox">SHOW CAMERA</button></span>
+            <span class="pull-left" style="margin-left:5px"><button type="button" class="btn btn-primary" id="btnHideCamBox">HIDE CAMERA</button></span>
+
+            <span class="fa-pull-right"><button id="SubmitEditedRecord" type="button" class="btn btn-success">UPDATE</button></span>
+        </div>
+    </div>
+
+</div>
+<div class="row" id="details" style="display:none">
+    <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+        <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+    </div>
+    <div class="x_content">
+
+        <p class="themeBgBorderBottom" style="width:100%;font-size:18px;text-align:center" id="inf">PERSON DETAILS</p>
+    </div>
+
+</div>
+<div class="row" id="delete" style="display:none">
+    <div class="row" style="font-size: 14px; float: left; margin-right: 5px; margin-left: 10px">
+        <input type="button" value="BACK TO LIST" class="btn btn-danger form-control backToList" />
+    </div>
+    <div class="x_content">
+        <div>
+            <div class="form-horizontal">
+                Do you want to delete this person?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btnOkDelete" class="btn btn-danger">Ok</button>
+            <button type="button" id="btnCancel" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/jqueryUI.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/buttons.bootstrap.min.js"></script>
+    <script src="~/Scripts/buttons.flash.min.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/buttons.print.min.js"></script>
+    <script src="~/Scripts/dataTables.fixedHeader.min.js"></script>
+    <script src="~/Scripts/dataTables.keyTable.min.js"></script>
+    <script src="~/Scripts/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/responsive.bootstrap.js"></script>
+    <script src="~/Scripts/datatables.scroller.min.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/admin/js/jquery.smartWizard.js"></script>
+    <script src="~/Scripts/admin/js/validator.js"></script>
+    <script src="~/Scripts/admin/js/registration.js"></script>
+    <script src="~/Scripts/canvasJS.js"></script>
+    <script src="~/Scripts/cropper.min.js"></script>
+    <script src="~/Scripts/CroppingVideos.js"></script>
+    <script src="~/Scripts/doubleScroll.js"></script>
+    <script>
+        var company1, regAs1, mode1;
+        $(document).ready(function () {
+            getRoles();
+            //$("#registrationTable").css({ "transform": "scale(0.9)", "margin-left": "5px"});
+            $('#wizard').smartWizard();
+
+            $('#wizard_verticle').smartWizard({
+                transitionEffect: 'slide'
+            });
+
+            $('.buttonNext').addClass('btn btn-success');
+            $('.buttonPrevious').addClass('btn btn-primary');
+            $('.buttonFinish').addClass('btn btn-default');
+        });
+    </script>
+    <!-- validator -->
+    <script>
+        // initialize the validator function
+        validator.message.date = 'not a real date';
+
+        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+        $('.btnAddPerson')
+            .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+            .on('change', 'select.required', validator.checkField)
+            .on('keypress', 'input[required][pattern]', validator.keypress);
+
+        $('.multi.required').on('keyup blur', 'input', function () {
+            validator.checkField.apply($(this).siblings().last()[0]);
+        });
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var submit = true;
+
+            // evaluate the form using generic validaing
+            if (!validator.checkAll($(this))) {
+                submit = false;
+            }
+
+            if (submit)
+                this.submit();
+
+            return false;
+        });
+
+    </script>
+    <!-- /validator -->
+    <!-- Cropper -->
+    <script>
+        $(document).ready(function () {
+            var $image = $('#image');
+            var $download = $('#download');
+            var $dataX = $('#dataX');
+            var $dataY = $('#dataY');
+            var $dataHeight = $('#dataHeight');
+            var $dataWidth = $('#dataWidth');
+            var $dataRotate = $('#dataRotate');
+            var $dataScaleX = $('#dataScaleX');
+            var $dataScaleY = $('#dataScaleY');
+            var options = {
+                aspectRatio: 16 / 9,
+                preview: '.img-preview',
+                crop: function (e) {
+                    $dataX.val(Math.round(e.x));
+                    $dataY.val(Math.round(e.y));
+                    $dataHeight.val(Math.round(e.height));
+                    $dataWidth.val(Math.round(e.width));
+                    $dataRotate.val(e.rotate);
+                    $dataScaleX.val(e.scaleX);
+                    $dataScaleY.val(e.scaleY);
+                }
+            };
+
+
+            // Tooltip
+            // $('[data-toggle="tooltip"]').tooltip();
+
+
+            // Cropper
+            $image.on({
+                'build.cropper': function (e) {
+                    console.log(e.type);
+                },
+                'built.cropper': function (e) {
+                    console.log(e.type);
+                },
+                'cropstart.cropper': function (e) {
+                    console.log(e.type, e.action);
+                },
+                'cropmove.cropper': function (e) {
+                    console.log(e.type, e.action);
+                },
+                'cropend.cropper': function (e) {
+                    console.log(e.type, e.action);
+                },
+                'crop.cropper': function (e) {
+                    console.log(e.type, e.x, e.y, e.width, e.height, e.rotate, e.scaleX, e.scaleY);
+                },
+                'zoom.cropper': function (e) {
+                    console.log(e.type, e.ratio);
+                }
+            }).cropper(options);
+
+
+            // Buttons
+            if (!$.isFunction(document.createElement('canvas').getContext)) {
+                $('button[data-method="getCroppedCanvas"]').prop('disabled', true);
+            }
+
+            if (typeof document.createElement('cropper').style.transition === 'undefined') {
+                $('button[data-method="rotate"]').prop('disabled', true);
+                $('button[data-method="scale"]').prop('disabled', true);
+            }
+
+
+            // Download
+            if (typeof $download[0].download === 'undefined') {
+                $download.addClass('disabled');
+            }
+
+
+            // Options
+            $('.docs-toggles').on('change', 'input', function () {
+                var $this = $(this);
+                var name = $this.attr('name');
+                var type = $this.prop('type');
+                var cropBoxData;
+                var canvasData;
+
+                if (!$image.data('cropper')) {
+                    return;
+                }
+
+                if (type === 'checkbox') {
+                    options[name] = $this.prop('checked');
+                    cropBoxData = $image.cropper('getCropBoxData');
+                    canvasData = $image.cropper('getCanvasData');
+
+                    options.built = function () {
+                        $image.cropper('setCropBoxData', cropBoxData);
+                        $image.cropper('setCanvasData', canvasData);
+                    };
+                } else if (type === 'radio') {
+                    options[name] = $this.val();
+                }
+
+                $image.cropper('destroy').cropper(options);
+            });
+
+
+            // Methods
+            $('.docs-buttons').on('click', '[data-method]', function () {
+                var $this = $(this);
+                var data = $this.data();
+                var $target;
+                var result;
+
+                if ($this.prop('disabled') || $this.hasClass('disabled')) {
+                    return;
+                }
+
+                if ($image.data('cropper') && data.method) {
+                    data = $.extend({}, data); // Clone a new one
+
+                    if (typeof data.target !== 'undefined') {
+                        $target = $(data.target);
+
+                        if (typeof data.option === 'undefined') {
+                            try {
+                                data.option = JSON.parse($target.val());
+                            } catch (e) {
+                                console.log(e.message);
+                            }
+                        }
+                    }
+
+                    result = $image.cropper(data.method, data.option, data.secondOption);
+
+                    switch (data.method) {
+                        case 'scaleX':
+                        case 'scaleY':
+                            $(this).data('option', -data.option);
+                            break;
+
+                        case 'getCroppedCanvas':
+                            if (result) {
+
+                                // Bootstrap's Modal
+                                $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+
+                                if (!$download.hasClass('disabled')) {
+                                    $download.attr('href', result.toDataURL());
+                                }
+                            }
+
+                            break;
+                    }
+
+                    if ($.isPlainObject(result) && $target) {
+                        try {
+                            $target.val(JSON.stringify(result));
+                        } catch (e) {
+                            console.log(e.message);
+                        }
+                    }
+
+                }
+            });
+
+            // Keyboard
+            $(document.body).on('keydown', function (e) {
+                if (!$image.data('cropper') || this.scrollTop > 300) {
+                    return;
+                }
+
+                switch (e.which) {
+                    case 37:
+                        e.preventDefault();
+                        $image.cropper('move', -1, 0);
+                        break;
+
+                    case 38:
+                        e.preventDefault();
+                        $image.cropper('move', 0, -1);
+                        break;
+
+                    case 39:
+                        e.preventDefault();
+                        $image.cropper('move', 1, 0);
+                        break;
+
+                    case 40:
+                        e.preventDefault();
+                        $image.cropper('move', 0, 1);
+                        break;
+                }
+            });
+
+            // Import image
+            var $inputImage = $('#inputImage');
+            var URL = window.URL || window.webkitURL;
+            var blobURL;
+
+            if (URL) {
+                $inputImage.change(function () {
+                    var files = this.files;
+                    var file;
+
+                    if (!$image.data('cropper')) {
+                        return;
+                    }
+
+                    if (files && files.length) {
+                        file = files[0];
+
+                        if (/^image\/\w+$/.test(file.type)) {
+                            blobURL = URL.createObjectURL(file);
+                            $image.one('built.cropper', function () {
+
+                                // Revoke when load complete
+                                URL.revokeObjectURL(blobURL);
+                            }).cropper('reset').cropper('replace', blobURL);
+                            $inputImage.val('');
+                        } else {
+                            window.alert('Please choose an image file.');
+                        }
+                    }
+                });
+            } else {
+                $inputImage.prop('disabled', true).parent().addClass('disabled');
+            }
+        });
+        function getRoles() {
+            $.ajax({
+                url: '/admin/GetRoles',
+                type: 'GET',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result !== null) {
+
+                        $.each(result, function (i, itm) {
+                            var row = "";
+                            $.each(result, function (i, stu) {
+
+                                row += "<option value='" + stu.Name + "'>" + stu.Name + "</option>";
+
+                            });
+                            $('#roles').append(row);
+                        });
+                    }
+                },
+                error: function (err) {
+                    alert("Error: " + err.responseText);
+                }
+            });
+        }
+
+    </script>
+    <!-- /Cropper -->
+
+}

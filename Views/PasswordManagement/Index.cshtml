@@ -1,0 +1,137 @@
+﻿@model IEnumerable<TgiApplications.Models.PasswordHistoryVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Datatables -->
+<link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/scroller.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/switchery.min.css" rel="stylesheet" />
+<h2 style="text-align:center">Staff Password Management</h2>
+<hr />
+
+
+<div id="atListDiv">
+    <table id="atListTable" class="table table-striped table-bordered  dt-responsive nowrap" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StaffName</th>
+                <th>App Role</th>
+                <th>DefaultPassord</th>
+                <th>NewPassword</th>
+                <th>DatePasswordChanged</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th><input class="tx" type="text" placeholder="StaffName"></th>
+                <th><input class="tx" type="text" placeholder="App Role"></th>
+                <th>DefaultPassord</th>
+                <th>NewPassword</th>
+                <th>DatePasswordChanged</th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
+
+<!-- Datatables -->
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/buttons.bootstrap.min.js"></script>
+<script src="~/Scripts/buttons.flash.min.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/buttons.print.min.js"></script>
+<script src="~/Scripts/dataTables.fixedHeader.min.js"></script>
+<script src="~/Scripts/dataTables.keyTable.min.js"></script>
+<script src="~/Scripts/dataTables.responsive.min.js"></script>
+<script src="~/Scripts/responsive.bootstrap.js"></script>
+<script src="~/Scripts/datatables.scroller.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/vfs_fonts.js"></script>
+<script src="~/Scripts/passwordMgm.js"></script>
+
+<!-- Custom Theme Scripts -->
+@*<script src="~/Scripts/custom.min.js"></script>*@
+<script src="~/Scripts/validator.js"></script>
+<script src="~/Scripts/moment.min.js"></script>
+
+
+
+<!-- bootstrap-daterangepicker -->
+@*<script src="~/Content/daterangepicker.js"></script>*@
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/prettify.js"></script>
+<script src="~/Scripts/jquery.tagsinput.js"></script>
+<script src="~/Scripts/switchery.min.js"></script>
+@*<script src="~/Scripts/jquery.autocomplete.min.js"></script>*@
+<script src="~/Scripts/starrr.js"></script>
+<script src="~/Scripts/bootstrap-wysiwyg.min.js"></script>
+<script src="~/Scripts/jquery.hotkeys.js"></script>
+@*<script src="~/Scripts/jquery.smartWizard.js"></script>*@
+
+
+<!-- validator -->
+<script>
+    // initialize the validator function
+    validator.message.date = 'not a real date';
+
+    // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+    $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
+
+    $('.multi.required').on('keyup blur', 'input', function () {
+        validator.checkField.apply($(this).siblings().last()[0]);
+    });
+
+    $('form').submit(function (e) {
+        e.preventDefault();
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+            submit = false;
+        }
+
+        if (submit)
+            this.submit();
+
+        return false;
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,100 @@
+﻿
+@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Create Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    #tbrole, .c {
+        border: double;
+    }
+</style>
+
+
+<div class="right_col" role="main">
+    <div class="page-title">
+        <div class="text-center">
+            <h2 style="color:black">Role Management</h2>
+        </div>
+    </div>
+    <br />
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title" style="border:solid 2px deeppink">
+                    <div class="text-center" style="background:#333333;margin-top:35px ">
+                        <h3 style="color:deeppink">CREATE ROLE</h3>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <td class="c">Enter Role Name To Be Created:</td>
+                                <td class="c">
+                                    @Html.EditorFor(m => m.Name)
+                                </td>
+                            </tr>
+                        </table>
+                        <input class="btn btn-success" type="submit" value="Create Role" />
+                    }
+                    <div class="text-left" style="background:#333333;margin-bottom:30px">
+                        <h3 style="color:deeppink">Available Roles</h3>
+                    </div>
+
+                    @if (ViewBag.Roles != null)
+                    {
+                        <div style="background-color:yellow;">
+                            <ol>
+                                @foreach (string r in ViewBag.Roles)
+                                {
+                                    <li>@r</li>
+                                }
+                            </ol>
+                        </div>
+                    }
+                    <div class="text-left" style="background:#333333;margin-bottom:30px">
+                        <h3 style="color:#333333">N</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /page content -->
+<!-- jQuery -->
+@*<script src="~/Scripts/jquery-1.11.3.min.js"></script>*@
+<!-- Bootstrap -->
+@*<script src="~/Scripts/bootstrap.min.js"></script>*@
+<!-- FastClick -->
+<script src="~/Scripts/fastclick.js"></script>
+<!-- NProgress -->
+<script src="~/Scripts/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="~/Scripts/Chart.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="~/Scripts/custom.min.js"></script>
+<script src="~/Scripts/validator.js"></script>
+<script src="~/Content/moment.min.js"></script>
+
+
+
+<!-- bootstrap-daterangepicker -->
+
+<script src="~/Content/daterangepicker.js"></script>
+<script src="~/Scripts/parsley.min.js"></script>
+<script src="~/Scripts/prettify.js"></script>
+<script src="~/Scripts/jquery.tagsinput.js"></script>
+<script src="~/Scripts/switchery.min.js"></script>
+<script src="~/Scripts/jquery.autocomplete.min.js"></script>
+<script src="~/Scripts/starrr.js"></script>
+<script src="~/Scripts/bootstrap-wysiwyg.min.js"></script>
+<script src="~/Scripts/jquery.hotkeys.js"></script>
+<script src="~/Scripts/jquery.smartWizard.js"></script>
+
+
+

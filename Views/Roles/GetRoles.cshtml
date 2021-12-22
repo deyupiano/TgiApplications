@@ -1,0 +1,32 @@
+﻿@using (Html.BeginForm("GetRoles", "Roles"))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        @*Username : @Html.TextBox("UserName")*@
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.Label("Select User", new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.DropDownList("UserName", null, new { @class = "ddl" })
+
+                    <span><input class="btn btn-success" type="submit" value="Get Roles for this User" /></span>
+                </div>
+
+            </div>
+        </div>
+
+    </p>
+}
+
+@if (ViewBag.RolesForThisUser != null)
+{
+    <div style="background-color:yellow;">
+        <h3>Roles for this user </h3>
+        <ol>
+            @foreach (string s in ViewBag.RolesForThisUser)
+            {
+                <li>@s</li>
+            }
+        </ol>
+    </div>
+}

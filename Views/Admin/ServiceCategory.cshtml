@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<TgiApplications.ViewModels.ServiceCategoryVM>
+@{
+    ViewBag.Title = "Service Category";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "CreateServiceCategory")
+</p>
+<table class="table table-bordered table-striped" style="width:100%">
+    <tr style="background-color:forestgreen;color:white">
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceCategoryName)
+        </th>
+ 
+        <th>ACTION</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCategoryName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditServiceCategory", new { id = item.ServiceCategoryId }) |
+                @Html.ActionLink("Delete", "DeleteServiceCategory", new { id = item.ServiceCategoryId })
+
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </td>
+    </tr>
+
+</table>
